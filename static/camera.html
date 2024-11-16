@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/common.js"></script>
+    <script src="js/camera.js"></script>
+</head>
+
+<body>
+    <div>
+        <button type="button" onclick="video_scan()">open</button>
+        <button type="button" onclick="video_close()">close</button>
+        <button type="button" onclick="scan()">scan</button>
+    </div>
+    <div>
+        <video autoplay id="video"></video>
+    </div>
+    <div id="screenshotsContainer">
+    </div>
+    <div id="log"></div>
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript">
+        video_scan()
+    </script>
+</body>
+</head>
+
+</html>

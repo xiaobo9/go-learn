@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/common.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<script type="text/javascript">
+    // 创建WebSocket连接
+    const socket = new WebSocket("ws://" + window.location.host + "/socket");
+
+    // 连接打开时的事件处理
+    socket.onopen = function (event) {
+        // 发送消息到服务器
+        sendMsg("Hello Server!");
+    };
+
+    // 接收到服务器消息时的事件处理
+    socket.onmessage = function (event) {
+        msg = JSON.parse(event.data)
+        el("#msgSpan").innerText = "最新消息: "+ msg.content
+        mylog("sender: "+msg.sender + ", content: " + msg.content);
+    };
+
+    // 连接关闭时的事件处理
+    socket.onclose = function (event) {
+        mylog("Client disconnected");
+    };
+
+    // 连接出错时的事件处理
+    socket.onerror = function (event) {
+        mylog("Connection error");
+    };
+    function sendMessage() {
+        ele = el("#textarea")
+        if (ele.value) {
+            sendMsg(ele.value);
+            ele.value = ""
+        }
+    }
+
+    function sendMsg(msg) {
+        socket.send(JSON.stringify({ "content": msg }))
+    }
+
+</script>
+
+<body>
+    <div style="display: inline-block;width: 45%;">
+        <div>
+            <span id="msgSpan"></span>
+        </div>
+        <div id="log"></div>
+    </div>
+    <div style="display: inline-block;width: 45%;height: 20%;">
+        <textarea id="textarea" style="display: block;width: 100%;" placeholder="要发送的消息"></textarea>
+        <button type="button" onclick="sendMessage()">sendMessage</button>
+    </div>
+
+</body>
+</head>
+
+</html>

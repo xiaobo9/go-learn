@@ -1,0 +1,10 @@
+/* html,body {
+    height: 100%;
+} */
+#video {
+    transform: rotateY(180deg);
+}
+
+#canvas {
+    display: none;
+}
